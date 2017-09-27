@@ -24,7 +24,7 @@
         var height =window.innerHeight;
         var canv=document.getElementById('canvas1');
         canv.width=width;
-        canv.height=height-20;
+        canv.height=height-40;
         heat = simpleheat('canvas1');
 
         webgazer.setRegression('ridge') /* currently must set regression and tracker */
@@ -38,8 +38,7 @@
         .begin()
         .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
 
-    var width = 320;
-    var height = 240;
+    
     var topDist = '0px';
     var leftDist = '0px';
     
