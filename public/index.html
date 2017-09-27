@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>Webgazer heatmap interfacing demo</title>
+    </head>
+    <body lang="en-US" link="#0000ff" dir="LTR">
+    
+ <canvas id="canvas1" height="100" width="300" align="center"></canvas>
+    <br><button id="stopbutton" onclick="stopGazing()" type="button">Stop</button>
+
+        <script src="./js/webgazer.js"></script>
+         <script src="./js/simpleheat.js"></script>
+        <canvas width="11px" height="781px" id="renderCanvas" style="display:none;"></canvas>
+        <script>
+
+
+        var datas=[],hmap=[],datalist=[];
+        var topDist = '0px';
+        var leftDist = '0px';
+        var heat,max=1;
+        window.onload = function() {
+        var width = window.innerWidth;
+        var height =window.innerHeight;
+        var canv=document.getElementById('canvas1');
+        canv.width=width;
+        canv.height=height-20;
+        heat = simpleheat('canvas1');
+
+        webgazer.setRegression('ridge') /* currently must set regression and tracker */
+        .setTracker('clmtrackr')
+        .setGazeListener(function(data, clock) {
+         //   console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+         //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+          if (data)         
+          datalist.push(Array(data.x,data.y,1));
+        })
+        .begin()
+        .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+
+    var width = 320;
+    var height = 240;
+    var topDist = '0px';
+    var leftDist = '0px';
+    
+    var setup = function() {
+        var video = document.getElementById('webgazerVideoFeed');
+        video.style.display = 'none';
+        video.style.position = 'absolute';
+        video.style.top = topDist;
+        video.style.left = leftDist;
+        video.width = width;
+        video.height = height;
+        video.style.margin = '0px';
+
+        webgazer.params.imgWidth = width;
+        webgazer.params.imgHeight = height;
+
+        
+
+        var cl = webgazer.getTracker().clm;
+        console.log('Complete setup');
+        // function drawLoop() {
+        //     requestAnimFrame(drawLoop);
+        //     overlay.getContext('2d').clearRect(0,0,width,height);
+        //     if (cl.getCurrentPosition()) {
+        //         cl.draw(overlay);
+        //     }
+        // }
+        // drawLoop();
+    };
+
+    function checkIfReady() {
+        if (webgazer.isReady()) {
+            console.log('WebGazer Set Ready');
+            setup();
+        } else {
+            setTimeout(checkIfReady, 100);
+        }
+    }
+    setTimeout(checkIfReady,100);
+};
+        var stopGazing = function(){
+         
+          
+
+        webgazer.showPredictionPoints(false)
+        .end();
+         
+            for(i=0; i<datalist.length;i++)
+                for(j=i+1;j<datalist.length;j++)
+                {
+                    if(datalist[i][0]===datalist[j][0] && datalist[i][1]===datalist[j][1])
+                    {
+                        datalist[i][2]= datalist[i][2]+1;
+                
+                datalist.splice(j,1);
+                 if (max < datalist[i][2])
+                  max = datalist[i][2];
+
+                    }
+                }
+            for(i=0; i<datalist.length;i++)
+            {
+              datalist[i][2] = Math.floor((datalist[i][2]/max)*18)
+            }
+
+                //  console.log(Array(i,j,hmap[i][j]));
+
+            
+
+            
+        //  heat.data(hmap);
+            heat.max(18);
+            // hmap=[768][1366];
+            // for(i<datas.length)
+            heat.data(datalist);
+            heat.draw();
+
+
+        };
+
+window.onbeforeunload = function() {
+    //webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
+    window.localStorage.clear(); //Comment out if you want to save data across different sessions 
+}
+        </script>
+
+    
+
