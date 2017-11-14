@@ -848,7 +848,6 @@ var objectdetect = (function() {
       audio: opt_options.audio
     }, function(stream) {
         try {
-        	window.localStream=stream;	
           element.src = window.URL.createObjectURL(stream);
         } catch (err) {
           element.src = stream;
@@ -10410,12 +10409,12 @@ var mosseFilterResponses = function() {
 
     //DEBUG variables
     //debug control boolean
-    var showGazeDot = true;
+    var showGazeDot = false;
     //debug element (starts offscreen)
     var gazeDot = document.createElement('div');
     gazeDot.style.position = 'fixed';
     gazeDot.style.zIndex = 99999;
-    gazeDot.style.left = '-5px';
+    gazeDot.style.left = '-5px'; //'-999em';
     gazeDot.style.top  = '-5px';
     gazeDot.style.width = '10px';
     gazeDot.style.height = '10px';
@@ -10626,7 +10625,7 @@ var mosseFilterResponses = function() {
         //third argument set to true so that we get event on 'capture' instead of 'bubbling'
         //this prevents a client using event.stopPropagation() preventing our access to the click
         document.addEventListener('click', clickListener, true);
-      //  document.addEventListener('mousemove', moveListener, true);
+        document.addEventListener('mousemove', moveListener, true);
     };
 
     /**
@@ -10746,9 +10745,9 @@ var mosseFilterResponses = function() {
         if (!navigator.getUserMedia) {
             alert("Unfortunately, your browser does not support access to the webcam through the getUserMedia API. Try to use Google Chrome, Mozilla Firefox, Opera, or Microsoft Edge instead.");
         }
-        // if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.chrome){
-        //     alert("WebGazer works only over https. If you are doing local development you need to run a local server.");
-        // }
+        if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.chrome){
+            alert("WebGazer works only over https. If you are doing local development you need to run a local server.");
+        }
 
         return webgazer;
     };
