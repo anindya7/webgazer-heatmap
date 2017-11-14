@@ -1,150 +1,152 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!-- saved from url=(0040)https://webgazer.cs.brown.edu/demo.html? -->
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link href="css/font-awesome-animation.min.css" rel="stylesheet">
-        <script src="https://use.fontawesome.com/88fea37d6a.js"></script>
-        <!-- <script src="/assets/jquery-3.2.1.min.js"></script>  -->
-        <script src="js/webgazer.js"></script>
-        <script src="js/simpleheat.js"></script>
-        <!-- <script src="/assets/jquery.validate.js"></script>  -->
-        <!-- <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script> -->
-        <!-- <script src="/assets/tether.min.js"></script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="js/font-awesome-animation.min.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/88fea37d6a.js"></script>
+    <!-- <script src="/assets/jquery-3.2.1.min.js"></script>  -->
+    <script src="js/webgazer.js"></script>
+    <script src="js/simpleheat.js"></script>
+    <!-- <script src="/assets/jquery.validate.js"></script>  -->
+    <!-- <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script> -->
+    <!-- <script src="/assets/tether.min.js"></script>
         <script src="/assets/bootstrap.min.js"></script> -->
-        
-       
-        <title>Bullseye_test</title>
-        
-            
-    </head>
-    <body lang="en-US" link="#0000ff" dir="LTR">
-       
-        <img id="study-image" alt="Upload an image : " display="none" />
-        
-        <input type="file" id="file-upload">
-        <p>
-            <button class="btn btn-primary" data-toggle="modal" onclick="setup()">Submit</button>
-        </p>
+
+
+    <title>Bullseye_test</title>
+
+
+</head>
+
+<body lang="en-US" link="#0000ff" dir="LTR">
+
+    <img id="study-image" alt="Upload an image : " display="none" />
+
+    <input type="file" id="file-upload">
+    <p>
+        <button id="submit-button" class="btn btn-primary" data-toggle="modal" onclick="setup()">Submit</button>
+    </p>
 
 
 
 
-        <div class="d-table" id="study-instruction-holder">
-            <div>
-                <h2 id="study-instruction" class="w-500 m-t-100 c-white">
-                    
-                </h2>
-            </div>
+    <div class="d-table" id="study-instruction-holder">
+        <div>
+            <h2 id="study-instruction" class="w-500 m-t-100 c-white">
+
+            </h2>
         </div>
-        <div class="modal fade" id="modal-run-calibration" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog width-500">
-                <div class="modal-content">
-                    <div class="modal-header bg-default">
-                        <h4 class="modal-title">
-                            <i class="icon-target"></i>
-                            <strong>Start</strong> Calibration</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="tracking-video-target" class="text-center m-b-20">
-                                    <!-- video -->
-        
-                                </div>
-                                <h2 class="m-10">
-                                    Center your head in the frame
-                                    <br/>
-                                    <strong>Remember! From now on - move only your eyes!</strong>
-                                </h2>
+    </div>
+    <div class="modal fade" id="modal-run-calibration" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog width-500">
+            <div class="modal-content">
+                <div class="modal-header bg-default">
+                    <h4 class="modal-title">
+                        <i class="icon-target"></i>
+                        <strong>Start</strong> Calibration</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="tracking-video-target" class="text-center m-b-20">
+                                <!-- video -->
+
                             </div>
+                            <h2 class="m-10">
+                                Center your head in the frame
+                                <br/>
+                                <strong>Remember! From now on - move only your eyes!</strong>
+                            </h2>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button id="run-calibration-trigger" data-dismiss="modal" class="btn btn-lg btn-primary" >
-                            <i class="icon-target"></i>
-                            Start Calibration
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="run-calibration-trigger" data-dismiss="modal" class="btn btn-lg btn-primary">
+                        <i class="icon-target"></i>
+                        Start Calibration
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="modal-rerun-calibration" role="dialog" >
-            <div class="modal-dialog">
-        
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Something went wrong.</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Calibration failed. Please calibrate again.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-info" onclick="reCalibrate()">Re-calibrate</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-rerun-calibration" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Something went wrong.</h4>
                 </div>
-        
+                <div class="modal-body">
+                    <p>Calibration failed. Please calibrate again.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" onclick="reCalibrate()">Re-calibrate</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
+
         </div>
+    </div>
 
 
-        <div id="calibrationPoint" style="position:absolute;">
-                <i class="fa fa-eye"></i>
-            <div id="calibration-point-countdown">
-            </div>
+    <div id="calibrationPoint" style="position:absolute;">
+        <i class="fa fa-eye"></i>
+        <div id="calibration-point-countdown">
         </div>
-        <canvas width="11px" height="781px" id="renderCanvas" style="display:none;"></canvas>
-        <canvas id="canvas1"  align="center"></canvas>
-        
+    </div>
+    <canvas width="11px" height="781px" id="renderCanvas" style="display:none;"></canvas>
+    <canvas id="canvas1" align="center"></canvas>
 
 
-        <button id="stopbutton" onclick="stopGazing(); this.disabled=true; this.value='Stopped'" type="button">Stop</button>
-        
 
-        <script>
+    <!-- <button id="stopbutton" onclick="stopGazing(); this.disabled=true; this.value='Stopped'" type="button">Stop</button> -->
+
+
+    <script>
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
-        var canvasOne=document.getElementById("canvas1");
+        var canvasOne = document.getElementById("canvas1");
         var grad;
         var heat;
         var imageWidth = 440;
         var imageHeight = 330;
         var calibrationPointSize = 40;
         var _DEBUG = false;
-        var datas=[],hmap=[],datalist=[];
-        var video=null;      
+        var datas = [], hmap = [], datalist = [];
+        var video = null;
         var centerScreen = [
-            windowWidth/2 -calibrationPointSize*3/4 ,
-            windowHeight/2 - calibrationPointSize*3/4,
+            windowWidth / 2 - calibrationPointSize * 3 / 4,
+            windowHeight / 2 - calibrationPointSize * 3 / 4,
         ];
 
         var calibrationPoints = [
-            [windowWidth/2 -calibrationPointSize*3/4 , windowHeight/2 - calibrationPointSize*3/4],
-            [calibrationPointSize/2, calibrationPointSize/2],
-            [windowWidth-calibrationPointSize*3/2, windowHeight-calibrationPointSize*3/2],
-            [windowWidth-calibrationPointSize*3/2, calibrationPointSize/2],
-            [calibrationPointSize/2, windowHeight-calibrationPointSize*3/2],
-            [windowWidth/2 - calibrationPointSize*3/4, calibrationPointSize/2],
-            [calibrationPointSize/2, windowHeight/2 - calibrationPointSize*3/4],
-            [windowWidth-calibrationPointSize*3/2, windowHeight/2 - calibrationPointSize*3/4],
-            [windowWidth/2 - calibrationPointSize*3/4, windowHeight-calibrationPointSize*3/2],
-            [windowWidth/4 - calibrationPointSize*3/4, windowHeight/2 - 30],
-            [windowWidth*3/4 - calibrationPointSize*3/4, windowHeight/2 - calibrationPointSize*3/4],
-            [windowWidth/2 - calibrationPointSize*3/4, windowHeight*1/4 - calibrationPointSize*3/4],
-            [windowWidth/2 - calibrationPointSize*3/4, windowHeight*3/4 - calibrationPointSize*3/4],
-            [windowWidth/2 -calibrationPointSize*3/4 , windowHeight/2 - calibrationPointSize*3/4]
+            [windowWidth / 2 - calibrationPointSize * 3 / 4, windowHeight / 2 - calibrationPointSize * 3 / 4],
+            [calibrationPointSize / 2, calibrationPointSize / 2],
+            [windowWidth - calibrationPointSize * 3 / 2, windowHeight - calibrationPointSize * 3 / 2],
+            [windowWidth - calibrationPointSize * 3 / 2, calibrationPointSize / 2],
+            [calibrationPointSize / 2, windowHeight - calibrationPointSize * 3 / 2],
+            [windowWidth / 2 - calibrationPointSize * 3 / 4, calibrationPointSize / 2],
+            [calibrationPointSize / 2, windowHeight / 2 - calibrationPointSize * 3 / 4],
+            [windowWidth - calibrationPointSize * 3 / 2, windowHeight / 2 - calibrationPointSize * 3 / 4],
+            [windowWidth / 2 - calibrationPointSize * 3 / 4, windowHeight - calibrationPointSize * 3 / 2],
+            [windowWidth / 4 - calibrationPointSize * 3 / 4, windowHeight / 2 - 30],
+            [windowWidth * 3 / 4 - calibrationPointSize * 3 / 4, windowHeight / 2 - calibrationPointSize * 3 / 4],
+            [windowWidth / 2 - calibrationPointSize * 3 / 4, windowHeight * 1 / 4 - calibrationPointSize * 3 / 4],
+            [windowWidth / 2 - calibrationPointSize * 3 / 4, windowHeight * 3 / 4 - calibrationPointSize * 3 / 4],
+            [windowWidth / 2 - calibrationPointSize * 3 / 4, windowHeight / 2 - calibrationPointSize * 3 / 4]
         ];
 
 
@@ -155,12 +157,12 @@
 
         var globalClock = 0;
         var globalProjectClock = 0;
-        
-        
+
+
         // function startStudy()
         // {
         //      $("#modal-run-calibration").show(); 
-               
+
         // }
 
         function drawCalibrationPoint(calibrationPointX, calibrationPointY) {
@@ -183,29 +185,25 @@
         }
 
         function showStudyInstructions(text) {
-                $('#study-instruction').html(text);
-                $('#study-instruction-holder').show();
-            }
+            $('#study-instruction').html(text);
+            $('#study-instruction-holder').show();
+        }
 
-        function checkCalibrationBeforeStudy(counter)
-        {
+        function checkCalibrationBeforeStudy(counter) {
             var currentPrediction = webgazer.getCurrentPrediction();
 
             if (currentPrediction && isPointAround(currentPrediction.x, currentPrediction.y, centerScreen[0], centerScreen[1], 100)) {
                 systemCalibrated = true;
                 showStudyInstructions("Look at the images, feel free to use scroll");
                 //setTimeout(studiestart, 3500);
-                setTimeout(showImage,3500);
+                setTimeout(showImage, 3500);
             }
-            else
-            { 
+            else {
                 counter++;
-                if (counter < 3)
-                {
-                    setTimeout(function() {checkCalibrationBeforeStudy(counter);}, 500);
+                if (counter < 3) {
+                    setTimeout(function () { checkCalibrationBeforeStudy(counter); }, 500);
                 }
-                else
-                {
+                else {
                     systemCalibrated = false;
                     $('#modal-rerun-calibration').modal(
                         {
@@ -213,16 +211,15 @@
                             keyboard: false
                         }
                     );
-                  // reCalibrate();
-                   //$('#modal-rerun-calibration').show();
+                    // reCalibrate();
+                    //$('#modal-rerun-calibration').show();
                 }
             }
             hideCalibrationPoint();
 
         }
 
-        function checkCalibrationAfterStudy(counter)
-        {
+        function checkCalibrationAfterStudy(counter) {
             var currentPrediction = webgazer.getCurrentPrediction();
 
             if (currentPrediction && isPointAround(currentPrediction.x, currentPrediction.y, centerScreen[0], centerScreen[1], 150)) {
@@ -232,12 +229,11 @@
                         keyboard: false
                     }
                 );
-            } 
-            else
-            {
+            }
+            else {
                 if (counter < 3) {
                     counter++;
-                    setTimeout(function() {checkCalibrationAfterStudy(counter);}, 500);
+                    setTimeout(function () { checkCalibrationAfterStudy(counter); }, 500);
                 } else {
                     $('#modal-rerun-calibration').modal(
                         {
@@ -249,24 +245,26 @@
             }
             hideCalibrationPoint();
         }
-        function showImage()
-        {   
-            try
-            {
-               var file = document.getElementById('file-upload')
-
+        function sleep(delay) {
+            var start = new Date().getTime();
+            while (new Date().getTime() < start + delay);
+        }
+        function showImage() {
+            try {
+                var file = document.getElementById('file-upload')
                 document.getElementById('study-image').src = window.URL.createObjectURL(file.files[0])
-                $("#study-image").delay(5000).hide(1);
-            } 
-            catch ({error})
-            {
-            console.log(error)
+                $("#study-image").delay(5000).hide(1).stopGazing();
+
+                //webgazer.pause();
+                // stopGazing();
             }
-            
+            catch ({ error }) {
+                console.log(error)
+            }
+
 
         }
-        function initCalibration()
-        {
+        function initCalibration() {
             // hideStudyInstructions();
 
             // if (_DEBUG) {
@@ -274,13 +272,11 @@
             //     setTimeout(studiestart, 500);
             //     return;
             // }
-            if (calibrationCounter >= calibrationPoints.length)
-            {
+            if (calibrationCounter >= calibrationPoints.length) {
                 drawCalibrationPoint(centerScreen[0], centerScreen[1]);
-                setTimeout(function() {checkCalibrationBeforeStudy(0);}, 500);
-            } 
-            else 
-            {
+                setTimeout(function () { checkCalibrationBeforeStudy(0); }, 500);
+            }
+            else {
                 var calibrationPointX = calibrationPoints[calibrationCounter][0];
                 var calibrationPointY = calibrationPoints[calibrationCounter][1];
                 drawCalibrationPoint(calibrationPointX, calibrationPointY);
@@ -299,13 +295,12 @@
             }
             calibrationCounter++;
         }
-       
-        function reCalibrate()
-        {
-            calibrationCounter=0;
+
+        function reCalibrate() {
+            calibrationCounter = 0;
             webgazer.begin();
-            datalist=[];
-            datas=[];
+            datalist = [];
+            datas = [];
             $("#modal-run-calibration").modal(
                 {
                     backdrop: 'static',
@@ -314,10 +309,10 @@
             );
         }
         function isPointAround(x, y, baseX, baseY, accuracy) {
-            if (( x >= (baseX - accuracy) ) &&
-                ( x <= (baseX + accuracy) ) &&
-                ( y >= (baseY - accuracy) ) &&
-                ( y <= (baseY + accuracy) )) {
+            if ((x >= (baseX - accuracy)) &&
+                (x <= (baseX + accuracy)) &&
+                (y >= (baseY - accuracy)) &&
+                (y <= (baseY + accuracy))) {
                 return true;
             }
             return false;
@@ -331,234 +326,231 @@
         //         setTimeout(checkIfTrackingReady, 100);
         //     }
         // }
-        function sleep(delay)
-        {
-            var start = new Date().getTime();
-            while (new Date().getTime() < start + delay);
-        }
 
-        function checkBrowser()
-        {
+
+        function checkBrowser() {
             if (window.innerWidth > window.innerHeight) {
                 $('#browser-width').val(window.innerWidth);
                 $('#browser-height').val(window.innerHeight);
             } else {
-                window.location.href = '/test/'+studyId+'/failed/?reason=Wrong Screen Resolution, it has to be horizontal!';
+                window.location.href = '/test/' + studyId + '/failed/?reason=Wrong Screen Resolution, it has to be horizontal!';
             }
         }
 
-      function setup()
-       {
+        function setup() {
 
             // Define Triggers
             // $('#run-calibration-trigger').on('click', function() {
-                // showStudyInstructions("Look directly at calibration points");
-            grad = {0.4: 'blue', 0.65: 'lime', 1: 'red'};
+            // showStudyInstructions("Look directly at calibration points");
+            grad = { 0.4: 'blue', 0.65: 'lime', 1: 'red' };
             console.log("elements loaded");
             var topDist = '0px';
             var leftDist = '0px';
-            var heat,max=1;  
+            var heat, max = 1;
             var width = window.innerWidth;
             var height = window.innerHeight;
             var overlay;
-            datalist=[];
-            canvasOne.width = width-10;
-            canvasOne.height = height-50;
+            datalist = [];
+            canvasOne.width = width - 10;
+            canvasOne.height = height - 50;
             heat = simpleheat('canvas1');
             //drawCalibrationPoint(centerScreen[0], centerScreen[1]);//start the calibration process
-          
+
             //setTimeout(initCalibration, 4000);
-            
+
             webgazer.setRegression('ridge') /* currently must set regression and tracker */
-            .setTracker('clmtrackr')
-            .removeMouseEventListeners()
-            .setGazeListener(function(data, clock) 
-            {
-            //console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
-            //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
-            if (data && systemCalibrated)    //&& systemCalibrated
-            { 
-                globalClock = clock;
-                //var positionData = [];
-                var currentProjectClock = globalClock - globalProjectClock;
-                //console.log(data);   
-                datalist.push(Array(data.x,data.y,1)); 
-                datas.push(currentProjectClock,pageYOffset);       
-                // globalClock = clock;
-                // var positionData = [];
-                // var currentProjectClock = globalClock - globalProjectClock;
-                // positionData[0] = data.x;
-                // positionData[1] = data.y;
-                // positionData[2] = Math.round(currentProjectClock);
-                // positionData[3] = window.pageYOffset;
-                //studyProjectData.push(positionData);
-            }
-        })//remove semicolon after debugging
-        .begin()
-        .showPredictionPoints(false); /* shows a square every 100 milliseconds where current prediction is */
-        
-        try
-        {
-            console.log("Before video element");
+                .setTracker('clmtrackr')
+                .removeMouseEventListeners()
+                .setGazeListener(function (data, clock) {
+                    //console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+                    //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+                    if (data && systemCalibrated)    //&& systemCalibrated
+                    {
+                        globalClock = clock;
+                        //var positionData = [];
+                        var currentProjectClock = globalClock - globalProjectClock;
+                        //console.log(data);   
+                        datalist.push(Array(data.x, data.y, 1));
+                        datas.push(currentProjectClock, pageYOffset);
+                        // globalClock = clock;
+                        // var positionData = [];
+                        // var currentProjectClock = globalClock - globalProjectClock;
+                        // positionData[0] = data.x;
+                        // positionData[1] = data.y;
+                        // positionData[2] = Math.round(currentProjectClock);
+                        // positionData[3] = window.pageYOffset;
+                        //studyProjectData.push(positionData);
+                    }
+                })//remove semicolon after debugging
+                .begin()
+                .showPredictionPoints(false); /* shows a square every 100 milliseconds where current prediction is */
 
-            function getVideoStream()
-            {
-                video=document.getElementById('webgazerVideoFeed');
-                //console.log(video);
-                if(video===null)
-                    setTimeout(getVideoStream,500);
-                else
-                setVideoProp();
-            }
-            setTimeout(getVideoStream,500);
-            
-            function setVideoProp()
-            {
-                console.log("Setting up");
-                video.style.display = 'block';
-                video.style.position = 'relative';
-                video.style.top = '0px';
-                video.style.left = '0px';
-                video.style.right = '0px';
-                video.style.width = '100%';
-                video.style.margin = 'auto';
-                     
-                //setTimeout(checkIfTrackingReady,100);
-                imageWidth=568;
-                imageHeight=426;
-                overlay = document.createElement('canvas');
-                overlay.id = 'overlay';
-                overlay.style.display = 'inline-block';
-                overlay.style.position = 'absolute';
-                overlay.width = imageWidth;
-                overlay.height = imageHeight;
-                overlay.style.top = '0px';
-                overlay.style.left = '0px';
-                overlay.style.right = '0px';
-                overlay.style.margin = 'auto';
-                
-                $('#run-calibration-trigger').on('click', function () {
-                    showStudyInstructions("Look directly at calibration points");
-                    drawCalibrationPoint(centerScreen[0], centerScreen[1]);
-                    setTimeout(initCalibration, 3000);
-                });
+            try {
+                console.log("Before video element");
 
-                // document.body.appendChild(overlay);
-                //$("#overlay").append(video);
-                $('#tracking-video-target').append(video);
-                $('#tracking-video-target').append(overlay);
-                $(overlay).css("z-index","1000");
-                var cl = webgazer.getTracker().clm;  
-                 function drawLoop()
-                {
+                function getVideoStream() {
+                    video = document.getElementById('webgazerVideoFeed');
+                    //console.log(video);
+                    if (video === null)
+                        setTimeout(getVideoStream, 500);
+                    else
+                        setVideoProp();
+                }
+                setTimeout(getVideoStream, 500);
+
+                function setVideoProp() {
+                    var width = 320;
+                    var height = 240;
+                    var topDist = '0px';
+                    var leftDist = '0px';
+
+                    var video = document.getElementById('webgazerVideoFeed');
+                    video.style.display = 'block';
+                    video.style.position = 'relative';
+                    video.style.top = '0px';
+                    video.style.left = '0px';
+                    video.style.right = '0px';
+                    video.width = imageWidth;
+                    video.height = imageHeight;
+                    video.style.margin = 'auto';
+
+                    webgazer.params.imgWidth = imageWidth;
+                    webgazer.params.imgHeight = imageHeight;
+
+                    var overlay = document.createElement('canvas');
+                    overlay.id = 'overlay';
+                    overlay.style.display = 'inline-block';
+                    overlay.style.position = 'absolute';
+                    overlay.width = imageWidth;
+                    overlay.height = imageHeight;
+                    overlay.style.top = '0px';
+                    overlay.style.left = '0px';
+                    overlay.style.right = '0px';
+                    overlay.style.margin = 'auto';
+
+                    // document.body.appendChild(overlay);
+                    var cl = webgazer.getTracker().clm;
+
+
+                    $('#run-calibration-trigger').on('click', function () {
+                        showStudyInstructions("Look directly at calibration points");
+                        drawCalibrationPoint(centerScreen[0], centerScreen[1]);
+                        setTimeout(initCalibration, 3000);
+                    });
+
+                    // document.body.appendChild(overlay);
+                    //$("#overlay").append(video);
+                    $('#tracking-video-target').append(video);
+                    $('#tracking-video-target').append(overlay);
+                    $(overlay).css("z-index", "1000");
+                    var cl = webgazer.getTracker().clm;
+                    function drawLoop() {
                         requestAnimFrame(drawLoop);
                         overlay.getContext('2d').clearRect(0, 0, imageWidth, imageHeight);
                         if (cl.getCurrentPosition()) {
                             cl.draw(overlay);
                         }
 
+                    }
+                    drawLoop();
                 }
-                drawLoop();
             }
-            }
-            catch(err)
-            {
+            catch (err) {
                 console.log(err.message);
             }
             console.log("displaying modal");
-           
-           
+
+
             $("#modal-run-calibration").modal(
-              {
-                  backdrop: 'static',
-                  keyboard: false
-              }
-          );
+                {
+                    backdrop: 'static',
+                    keyboard: false
+                }
+            );
 
-        
 
-       
-            
-            
-        
+
+
+
+
+
         };//end of function setup
 
-        
-       
-       
 
-        function stopGazing()
-        {
-           
-            
+
+
+
+        function stopGazing() {
+
+
             webgazer.showPredictionPoints(false);
-            var max=datalist[0][2];
-            this.disable=true;
-            this.value='Stopped';
+            var max = datalist[0][2];
+            //this.disable=true;
+            //this.value='Stopped';
             console.log("webgazer ended");
-            video.src="";
-            for(i=0; i<datalist.length;i++)
-                for(j=i+1;j<datalist.length;j++)
-                {
-                    if(datalist[i][0]===datalist[j][0] && datalist[i][1]===datalist[j][1])
-                    {
-                        datalist[i][2]= datalist[i][2]+1;
-                
-                datalist.splice(j,1);
-                 if (max < datalist[i][2])
-                  max = datalist[i][2];
+            video.src = "";
+            for (i = 0; i < datalist.length; i++)
+                for (j = i + 1; j < datalist.length; j++) {
+                    if (datalist[i][0] === datalist[j][0] && datalist[i][1] === datalist[j][1]) {
+                        datalist[i][2] = datalist[i][2] + 1;
+
+                        datalist.splice(j, 1);
+                        if (max < datalist[i][2])
+                            max = datalist[i][2];
 
                     }
                 }
-            for(i=0; i<datalist.length;i++)
-            {
-              datalist[i][2] = Math.floor((datalist[i][2]/max)*12)
+            for (i = 0; i < datalist.length; i++) {
+                datalist[i][2] = Math.floor((datalist[i][2] / max))  // (datalist[i][2]/max)*maxvalue
             }
 
-                // console.log(Array(i,j,hmap[i][j]));
-
-            
-
-            
-        // //  heat.data(hmap);
-        //     heat.max(18);
-        //     // hmap=[768][1366];
-        //     // for(i<datas.length)
-        //     heat.data(datalist);
-        //     heat.gradient(grad);
-        heat = simpleheat(canvasOne).data(datalist).max(12);
-        function draw() 
-        {
-            console.time('draw');
-            heat.draw();
-            console.timeEnd('draw');
-            //frame = null;
-        }
-        heat.gradient(grad);
-        draw();
-       
+            // console.log(Array(i,j,hmap[i][j]));
 
 
-        //heat.draw();
+
+
+            // //  heat.data(hmap);
+            //     heat.max(18);
+            //     // hmap=[768][1366];
+            //     // for(i<datas.length)
+            //     heat.data(datalist);
+            //     heat.gradient(grad);
+            heat = simpleheat(canvasOne);
+            heat.data(datalist);
+            heat.gradient(grad);
+            //heat.max(12);
+
+            function draw() {
+                console.time('draw');
+                heat.draw();
+                console.timeEnd('draw');
+                //frame = null;
+            }
+
+            draw();
+
+
+
+            //heat.draw();
 
 
         };
 
-        window.onbeforeunload = function()
-        {
-        // webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
-        window.localStorage.clear(); //Comment out if you want to save data across different sessions 
+        window.onbeforeunload = function () {
+            // webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
+            window.localStorage.clear(); //Comment out if you want to save data across different sessions 
         };
-            
-            
-       
-
-
-        </script>
 
 
 
 
 
-    </body>
-    </html>
+    </script>
+
+
+
+
+
+</body>
+
+</html>
