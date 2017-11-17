@@ -12,7 +12,7 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="js/font-awesome-animation.min.css" rel="stylesheet">
+    <!-- <link href="js/font-awesome-animation.min.css" rel="stylesheet"> -->
     <script src="https://use.fontawesome.com/88fea37d6a.js"></script>
     <!-- <script src="/assets/jquery-3.2.1.min.js"></script>  -->
     <script src="js/webgazer.js"></script>
@@ -29,16 +29,20 @@
 </head>
 
 <body lang="en-US" link="#0000ff" dir="LTR">
-
-    <img id="study-image" alt="Upload an image : " display="none" />
-
+    <div id="heatmap-display">
+    <img id='image'>
+    </div>
+    </div>
+    <!-- <img id="study-image" alt="Upload an image : " display="block" position="relative" />
+    <canvas id="canvas1" align="center" style="display: inline-block" position="absolute"></canvas> -->
+        <div id="input-elements">
     <input type="file" id="file-upload">
     <p>
-        <button id="submit-button" class="btn btn-primary" data-toggle="modal" onclick="setup()">Submit</button>
+        <button id="submit-button" class="btn btn-primary" data-toggle="modal" onclick="setup();">Submit</button>
     </p>
+    </div>
 
-
-
+    
 
     <div class="d-table" id="study-instruction-holder">
         <div>
@@ -103,22 +107,23 @@
 
 
     <div id="calibrationPoint" style="position:absolute;">
-        <i class="fa fa-eye"></i>
+        <i class="fa fa-eye fa-3x"></i>
         <div id="calibration-point-countdown">
         </div>
     </div>
     <canvas width="11px" height="781px" id="renderCanvas" style="display:none;"></canvas>
-    <canvas id="canvas1" align="center"></canvas>
+    <!-- <canvas id="canvas1" align="center"></canvas> -->
 
 
 
-    <button id="stopbutton" onclick="stopGazing(); this.disabled=true; this.value='Stopped'" type="button">Stop</button>
+    <!-- <button id="stopbutton" onclick="stopGazing(); this.disabled=true; this.value='Stopped'" type="button">Stop</button> -->
 
 
     <script>
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
-        var canvasOne = document.getElementById("canvas1");
+        var image,canv,heat,flag=0;
+        //var studyImage = document.getElementById("study-image");
         var grad;
         var heat;
         var imageWidth = 440;
@@ -194,6 +199,7 @@
 
             if (currentPrediction && isPointAround(currentPrediction.x, currentPrediction.y, centerScreen[0], centerScreen[1], 100)) {
                 systemCalibrated = true;
+                console.time("valid calibration");
                 showStudyInstructions("Look at the images, feel free to use scroll");
                 //setTimeout(studiestart, 3500);
                 setTimeout(showImage, 3500);
@@ -249,21 +255,96 @@
             var start = new Date().getTime();
             while (new Date().getTime() < start + delay);
         }
-        function showImage() {
-            try {
-                var file = document.getElementById('file-upload')
-                document.getElementById('study-image').src = window.URL.createObjectURL(file.files[0])
-                $("#study-image").delay(5000).hide(1).stopGazing();
+        function displayHeatmap() {
+            
+            
+            
 
+            
+           var grad = { 0.4: 'blue', 0.65: 'lime', 1: 'red' };
+
+
+            image.style.display = 'block'
+            image.style.position = 'relative'
+            canv.style.display = 'inline-block';
+            canv.style.position = 'absolute';
+            canv.width = window.innerWidth;
+            canv.height = image.height;
+            canv.style.top = '0px';
+            canv.style.left = '0px';
+            canv.style.right = '0px';
+            canv.style.margin = 'auto';
+            //$("#heatmap-display").append(image);
+            canv.globalAlpha = 0.2;
+            $("#heatmap-display").append(canv);
+            $("#heatmap-display").show();
+            console.log("showing image");
+            // image.style.width = 80 % vh;
+
+
+            // canv.style.width = 80 % vh;
+            heat = simpleheat(canv);
+            heat.data(datalist);
+            heat.gradient(grad);
+            // heat.max(12);
+
+          
+            heat.draw();
+
+        }
+        function showImage() {
+            $("#input-elements").hide();
+                image = document.getElementById("image");
+                var file = document.getElementById('file-upload')
+                image.src = window.URL.createObjectURL(file.files[0])
+                image.onload = function () { };
+
+                image.style.display = 'block'
+                image.style.position = 'relative'
+
+                // image.style.top = '0px';
+                // image.style.left = '0px';
+                // image.style.right = '0px';
+
+                image.width = window.innerWidth;
+                image.height = window.innerHeight;
+
+
+                canv = document.createElement("canvas");
+                canv.id = 'canvas';
+                //console.timeEnd("valid calibration");
+
+                
+                var file = document.getElementById('file-upload')
+                image.src = window.URL.createObjectURL(file.files[0])
+                $("#heatmap-display").append(image);
+                $("#image").show();
+                $("heatmap-display").show();
+                console.log(image);
+                flag=1;
+                console.time("imagedelay");
+                $("#image").delay(5000).hide(1);
+                console.timeEnd("imagedelay");
+                console.time("stopgazingcall");
+                setTimeout(function(){stopGazing();displayHeatmap();}, 5100);
+                console.timeEnd("stopgazingcall");
+
+
+
+                //setTimeout(displayHeatmap, 5100);
+
+
+            
+                
+                //console.log("stopped gazing");
                 //webgazer.pause();
                 // stopGazing();
-            }
-            catch ({ error }) {
-                console.log(error)
-            }
+                
+            
 
 
         }
+        
         function initCalibration() {
             // hideStudyInstructions();
 
@@ -346,14 +427,14 @@
             console.log("elements loaded");
             var topDist = '0px';
             var leftDist = '0px';
-            var heat, max = 1;
+            var max = 1;
             var width = window.innerWidth;
             var height = window.innerHeight;
             var overlay;
             datalist = [];
-            canvasOne.width = width - 10;
-            canvasOne.height = height - 50;
-            heat = simpleheat('canvas1');
+            //canvasOne.width = width - 10;
+            //canvasOne.height = height - 50;
+            
             //drawCalibrationPoint(centerScreen[0], centerScreen[1]);//start the calibration process
 
             //setTimeout(initCalibration, 4000);
@@ -364,8 +445,9 @@
                 .setGazeListener(function (data, clock) {
                     //console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
                     //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
-                    if (data && systemCalibrated)    //&& systemCalibrated
-                    {
+                    if (data && systemCalibrated && flag)    //&& systemCalibrated
+                    {   
+                        console.log("pushing data (%s , %s)",data.x,data.y);
                         globalClock = clock;
                         //var positionData = [];
                         var currentProjectClock = globalClock - globalProjectClock;
@@ -384,7 +466,7 @@
                 })//remove semicolon after debugging
                 .begin()
                 .showPredictionPoints(false); /* shows a square every 100 milliseconds where current prediction is */
-
+                console.log("webgazer begun");
             try {
                 console.log("Before video element");
 
@@ -404,7 +486,7 @@
                     var topDist = '0px';
                     var leftDist = '0px';
 
-                    var video = document.getElementById('webgazerVideoFeed');
+                    video = document.getElementById('webgazerVideoFeed');
                     video.style.display = 'block';
                     video.style.position = 'relative';
                     video.style.top = '0px';
@@ -433,16 +515,17 @@
 
 
                     $('#run-calibration-trigger').on('click', function () {
-                        showStudyInstructions("Look directly at calibration points");
-                        drawCalibrationPoint(centerScreen[0], centerScreen[1]);
+                        
                         setTimeout(initCalibration, 3000);
+                        $("#input-elements").hide();
+                        
                     });
 
                     // document.body.appendChild(overlay);
                     //$("#overlay").append(video);
                     $('#tracking-video-target').append(video);
                     $('#tracking-video-target').append(overlay);
-                    $(overlay).css("z-index", "1000");
+                    //$("overlay").css("z-index", "1000");
                     var cl = webgazer.getTracker().clm;
                     function drawLoop() {
                         requestAnimFrame(drawLoop);
@@ -460,13 +543,17 @@
             }
             console.log("displaying modal");
 
-
-            $("#modal-run-calibration").modal(
-                {
-                    backdrop: 'static',
-                    keyboard: false
-                }
-            );
+            function showCalibrationModal(){
+            if(video)
+                $("#modal-run-calibration").modal(
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
+            else setTimeout(showCalibrationModal,200);
+            }
+            showCalibrationModal();
 
 
 
@@ -484,6 +571,7 @@
 
 
             webgazer.showPredictionPoints(false);
+            webgazer.pause();
             var max = datalist[0][2];
             //this.disable=true;
             //this.value='Stopped';
@@ -515,20 +603,7 @@
             //     // for(i<datas.length)
             //     heat.data(datalist);
             //     heat.gradient(grad);
-            heat = simpleheat(canvasOne);
-            heat.data(datalist);
-            heat.gradient(grad);
-            //heat.max(12);
-
-            function draw() {
-                console.time('draw');
-                heat.draw();
-                console.timeEnd('draw');
-                //frame = null;
-            }
-
-            draw();
-
+           
 
 
             //heat.draw();
